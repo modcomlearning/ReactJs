@@ -5,33 +5,23 @@ const Booking = () => {
     //Username
     const [username, setUsername] = useState('');
     const [usernameError, setUsernameError] = useState('');
+
+    //Password
+    const [county, setCounty] = useState('');
     const [countyError, setCountyError] = useState('');
+
+    //Password
+    const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
 
-    const handleUsernameChange = (e) => {
+
+    const  handleUsernameValidation = (e) => {
         const { value } = e.target;
         setUsername(value)
-        // Perform live validation
-        validateUsername(value)
-    };
 
-    const handleCountyChange = (e) => {
-        const { value } = e.target;
-        // Perform live validation
-        validateCounty(value)
-    };
-
-    const handlePasswordChange = (e) => {
-        const { value } = e.target;
-        // Perform live validation
-        validatePassword(value)
-    };
-
-
-    const validateUsername = (value) => {
-        if (value.trim() === '') {
-            setUsernameError('Username is required');
+        if (value.trim() == '') {
+            setUsernameError('Username is required')
         } else if (value.length > 10) {
             setUsernameError('Username should not exceed 10 characters');
         } else {
@@ -39,7 +29,10 @@ const Booking = () => {
         }
     };
 
-    const validateCounty = (value) => {
+
+    const handleCountyValidation = (e) => {
+        const { value } = e.target;
+        setCounty(value)
         if (value.trim() === '') {
             setCountyError('County is required');
         } 
@@ -48,9 +41,10 @@ const Booking = () => {
         }
     };
 
-
-    const validatePassword = (value) => {
-        if (value.trim() === '') {
+    const handlePasswordValidation = (e) => {
+        const { value } = e.target;
+        setPassword(value)
+        if (value.trim() == '') {
             setPasswordError('Password is required');
         } else if (value.length < 8) {
             setPasswordError('Should be more than 8 characters');
@@ -65,10 +59,14 @@ const Booking = () => {
 
 
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Validate before submitting (optional)
-        validateUsername(username);
+        handleUsernameValidation(username)
+        handleCountyValidation(county)
+        handlePasswordValidation(password)
    
     };
 
@@ -84,7 +82,7 @@ const Booking = () => {
                     <input
                         type="text"
                         name="username"
-                        onChange={handleUsernameChange}
+                        onChange={handleUsernameValidation}
                     /> <br />
                     <i style={{ color: 'red' }}>{usernameError} </i><br />
 
@@ -92,7 +90,7 @@ const Booking = () => {
                     <input
                         type="text"
                         name="county"
-                        onChange={handleCountyChange}
+                        onChange={handleCountyValidation}
                     /> <br />
                      <i style={{ color: 'red' }}>{countyError} </i> <br />
 
@@ -100,12 +98,10 @@ const Booking = () => {
                     <input
                         type="text"
                         name="password"
-                        onChange={handlePasswordChange}
+                        onChange={handlePasswordValidation}
                     /> <br />
                      <i style={{ color: 'red' }}>{passwordError} </i>
-                    
 
-              
                 </div>
                 <button type="submit">Submit</button>
             </form>
